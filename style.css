@@ -1,4 +1,11 @@
 body {
   color: cornsilk;
   background-color: black;
+  text-align: center;
+}
+
+li {
+  display: inline-block;
+  border: 2px solid white;
+  margin: 15px;
 }
