@@ -45,11 +45,35 @@ Pics.random = function() {
   if(Pics.doNotUse.indexOf(randomIndex) !== -1) {
     Pics.random();
   }
+
   Pics.workingArray.push(Pics.all[randomIndex]);
-    // imgEl.src = Pics.all[randomIndex].filePath;
-  Pics.all[randomIndex].views++;
   Pics.doNotUse.push(randomIndex);
+  Pics.all[randomIndex].views++;
 };
+
+Pix.displayImages = function() {
+  for(var i = 1; i < 4; i++) {
+    Pics.random();
+    var imgEl = document.getElementById(toString(i));
+    imgEl.src = Pics.workingArray[i].filePath;
+  }
+};
+
+Pix.redisplayImages = function() {
+  for(var i = 0; i < 3; i++) {
+    Pix.workingArray.shift();
+  }
+  Pix.displayImages();
+};
+
+Pix.clearDoNotUseArray = function() {
+  for(var i = 0; i < 3; i++) {
+    Pix.doNotUse.shift();
+  }
+};
+
+
+imgEl.addEventListener('click', randomImage);
 
 
 
