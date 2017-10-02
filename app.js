@@ -4,6 +4,9 @@ Pics.all = [];
 Pics.doNotUse = [];
 Pics.workingArray = [];
 Pics.totalClicksCounter = 25;
+Pics.imgEl1 = document.getElementById('1');
+Pics.imgEl2 = document.getElementById('2');
+Pics.imgEl3 = document.getElementById('3');
 
 
 function Pics(picName, filePath) {
@@ -59,6 +62,8 @@ Pix.displayImages = function() {
   }
 };
 
+//event handling
+
 Pix.redisplayImages = function() {
   for(var i = 0; i < 3; i++) {
     Pix.workingArray.shift();
@@ -72,9 +77,32 @@ Pix.clearDoNotUseArray = function() {
   }
 };
 
+Pics.clickImg1 = function() {
+  Pics.all[Pics.doNotUse[0]].clicks++;
+};
 
-imgEl.addEventListener('click', randomImage);
+Pics.clickImg2 = function() {
+  Pics.all[Pics.doNotUse[1]].clicks++;
+};
 
+Pics.clickImg3 = function() {
+  Pics.all[Pics.doNotUse[2]].clicks++;
+};
+
+Pix.reLoadPage = function() {
+  if(Pics.totalClicksCounter > 0) {
+    redisplayImages();
+    clearDoNotUseArray();
+    Pics.totalClicksCounter--;
+    return;
+  } else {
+    displayResults();
+  }
+};
+
+Pics.imgEl1.addEventListener('click', clickImg1);
+Pics.imgEl2.addEventListener('click', clickImg2);
+Pics.imgEl3.addEventListener('click', clickImg3);
 
 
 // event handler
