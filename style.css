@@ -9,3 +9,7 @@ li {
   border: 2px solid white;
   margin: 15px;
 }
+
+img {
+  width: 300px;
+}

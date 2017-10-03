@@ -4,9 +4,9 @@ Pics.all = [];
 Pics.doNotUse = [];
 Pics.workingArray = [];
 Pics.totalClicksCounter = 25;
-Pics.imgEl1 = document.getElementById('1');
-Pics.imgEl2 = document.getElementById('2');
-Pics.imgEl3 = document.getElementById('3');
+Pics.imgEl1 = document.getElementById('one');
+Pics.imgEl2 = document.getElementById('two');
+Pics.imgEl3 = document.getElementById('three');
 Pics.allImages = document.getElementById('images');
 Pics.ulEl = document.getElementById('results');
 
@@ -57,11 +57,13 @@ Pics.random = function() {
 };
 
 Pics.displayImages = function() {
-  for(var i = 1; i < 4; i++) {
-    Pics.random();
-    var imgEl = document.getElementById(toString(i));
-    imgEl.src = Pics.workingArray[i].filePath;
-  }
+  Pics.random();
+  Pics.imgEl1.src = Pics.workingArray[0].filePath;
+  Pics.random();
+  Pics.imgEl2.src = Pics.workingArray[1].filePath;
+  Pics.random();
+  Pics.imgEl3.src = Pics.workingArray[2].filePath;
+
 };
 
 //event handling
@@ -102,9 +104,20 @@ Pics.reLoadPage = function() {
   }
 };
 
-Pics.imgEl1.addEventListener('click', clickImg1);
-Pics.imgEl2.addEventListener('click', clickImg2);
-Pics.imgEl3.addEventListener('click', clickImg3);
+// Pics.imgEl1.addEventListener('click', Pics.clickImg1);
+// Pics.imgEl2.addEventListener('click', Pics.clickImg2);
+// Pics.imgEl3.addEventListener('click', Pics.clickImg3);
+Pics.allImages.addEventListener('click', function(event) {
+  if (event.target.id === 'one') {
+    Pics.clickImg1();
+  };
+  if (event.target.id === 'two') {
+    Pics.clickImg2();
+  };
+  if (event.target.id === 'three') {
+    Pics.clickImg3();
+  };
+});
 
 
 Pics.displayResults = function() {
