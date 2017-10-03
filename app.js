@@ -14,6 +14,9 @@ function Pics(name, filepath, altText) {
   this.views = 0;
   this.clicks = 0;
   Pics.all.push(this);
+  Pics.viewsArray = [];
+  Pics.clicksArray = [];
+  Pics.nameArray = [];
 
 }
 
@@ -103,19 +106,89 @@ function handleClick(event) {
   }
   if(Pics.totalClicksCounter === 0) {
     Pics.section.removeEventListener('click', handleClick);
-    showResults();
+    // showResults();
+    Pics.drawChart();
   }
   randomImage();
 }
 
 
-function showResults() {
-  for(var i = 0; i < Pics.all.length; i++) {
-    var liEl = document.createElement('li');
-    liEl.textContent = Pics.all[i].name + ' has ' + Pics.all[i].clicks + ' votes in ' + Pics.all[i].views + ' times shown.';
-    Pics.resultsList.appendChild(liEl);
+// function showResults() {
+//   for(var i = 0; i < Pics.all.length; i++) {
+//     var liEl = document.createElement('li');
+//     liEl.textContent = Pics.all[i].name + ' has ' + Pics.all[i].clicks + ' votes in ' + Pics.all[i].views + ' times shown.';
+//     Pics.resultsList.appendChild(liEl);
+//   }
+//   Pics.resultsArrays();
+// }
+
+Pics.chartData = {
+  labels: Pics.nameArray, // titles array we declared earlier
+  datasets: [
+    {
+      label: 'Number of Votes',
+      data: Pics.clicksArray, // votes array we declared earlier
+      backgroundColor: [
+        'bisque',
+        'darkgray',
+        'burlywood',
+        'lightblue',
+        'navy',
+        'bisque',
+        'darkgray',
+        'burlywood',
+        'lightblue',
+        'navy',
+        'bisque',
+        'darkgray',
+        'burlywood',
+        'lightblue',
+        'navy',
+        'bisque',
+        'darkgray',
+        'burlywood',
+        'lightblue',
+        'navy'
+      ],
+      hoverBackgroundColor: 'salmon'
+    }]
+};
+
+Pics.drawChart = function() {
+  Pics.resultsArrays();
+  var ctx = document.getElementById('chart').getContext('2d');
+  new Chart(ctx,{
+    type: 'bar',
+    data: Pics.chartData,
+    options: {
+      responsive: false,
+      animation: {
+        duration: 1000,
+        easing: 'easeOutBounce'
+      }
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          max: 20,
+          min: 0,
+          stepSize: 1.0
+        }
+      }]
+    }
+  });
+  // chartDrawn = true;
+};
+
+// Updating results arrays
+
+Pics.resultsArrays = function() {
+  for (var i = 0; i < Pics.all.length; i++) {
+    Pics.viewsArray[i] = Pics.all[i].views;
+    Pics.clicksArray[i] = Pics.all[i].clicks;
+    Pics.nameArray[i] = Pics.all[i].name;
   }
-}
+};
 
 //add event listener
 Pics.section.addEventListener('click', handleClick);
