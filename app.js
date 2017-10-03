@@ -7,6 +7,8 @@ Pics.totalClicksCounter = 25;
 Pics.imgEl1 = document.getElementById('1');
 Pics.imgEl2 = document.getElementById('2');
 Pics.imgEl3 = document.getElementById('3');
+Pics.allImages = document.getElementById('images');
+Pics.ulEl = document.getElementById('results');
 
 
 function Pics(picName, filePath) {
@@ -54,7 +56,7 @@ Pics.random = function() {
   Pics.all[randomIndex].views++;
 };
 
-Pix.displayImages = function() {
+Pics.displayImages = function() {
   for(var i = 1; i < 4; i++) {
     Pics.random();
     var imgEl = document.getElementById(toString(i));
@@ -64,16 +66,16 @@ Pix.displayImages = function() {
 
 //event handling
 
-Pix.redisplayImages = function() {
+Pics.redisplayImages = function() {
   for(var i = 0; i < 3; i++) {
-    Pix.workingArray.shift();
+    Pics.workingArray.shift();
   }
-  Pix.displayImages();
+  Pics.displayImages();
 };
 
-Pix.clearDoNotUseArray = function() {
+Pics.clearDoNotUseArray = function() {
   for(var i = 0; i < 3; i++) {
-    Pix.doNotUse.shift();
+    Pics.doNotUse.shift();
   }
 };
 
@@ -89,14 +91,14 @@ Pics.clickImg3 = function() {
   Pics.all[Pics.doNotUse[2]].clicks++;
 };
 
-Pix.reLoadPage = function() {
+Pics.reLoadPage = function() {
   if(Pics.totalClicksCounter > 0) {
     redisplayImages();
     clearDoNotUseArray();
     Pics.totalClicksCounter--;
     return;
   } else {
-    displayResults();
+    Pics.displayResults();
   }
 };
 
@@ -105,6 +107,13 @@ Pics.imgEl2.addEventListener('click', clickImg2);
 Pics.imgEl3.addEventListener('click', clickImg3);
 
 
-// event handler
+Pics.displayResults = function() {
+  Pix.allImages.innerHTML = '';
+  for(var i = 0; i < Pics.all.length; i++) {
+    var liEl = document.createElement('li');
+    liEl.textContent = Pics.all[i].clicks + ' votes for the ' + Pics.all[i].picName;
+    Pics.ulEl.appendChild(liEl);
+  }
+};
 
-// event listeners
+Pics.displayImages();
