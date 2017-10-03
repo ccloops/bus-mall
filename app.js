@@ -21,7 +21,7 @@ function Pics(name, filepath, altText) {
 new Pics('bag', 'img/bag.jpg', 'bag');
 new Pics('banana', 'img/banana.jpg', 'banana');
 new Pics('bathroom', 'img/bathroom.jpg', 'bathroom');
-new Pics('boots', 'img/bag.jpg', 'boots');
+new Pics('boots', 'img/boots.jpg', 'boots');
 new Pics('breakfast', 'img/breakfast.jpg', 'breakfast');
 new Pics('bubblegum', 'img/bubblegum.jpg', 'bubblegum');
 new Pics('chair', 'img/chair.jpg', 'chair');
@@ -46,13 +46,20 @@ var thirdEl = document.getElementById('third');
 
 function randomImage() {
   var randomFirst = Math.floor(Math.random() * Pics.all.length);
+  console.log('initial random first', randomFirst);
   var randomSecond = Math.floor(Math.random() * Pics.all.length);
+  console.log('initial random second', randomSecond);
   var randomThird = Math.floor(Math.random() * Pics.all.length);
+  console.log('initial random third', randomThird);
 
   while(Pics.lastDisplayed.includes(randomSecond) || Pics.lastDisplayed.includes(randomFirst) || Pics.lastDisplayed.includes(randomThird) || randomFirst === randomSecond || randomSecond === randomThird || randomFirst === randomThird) {
+    console.log('invalid number');
     randomFirst = Math.floor(Math.random() * Pics.all.length);
+    console.log('this is random first', randomFirst);
     randomSecond = Math.floor(Math.random() * Pics.all.length);
+    console.log('this is random second', randomSecond);
     randomThird = Math.floor(Math.random() * Pics.all.length);
+    console.log('this is random third', randomThird);
   }
 
   //update src for first image
@@ -76,6 +83,7 @@ function randomImage() {
   Pics.lastDisplayed[0] = randomFirst;
   Pics.lastDisplayed[1] = randomSecond;
   Pics.lastDisplayed[2] = randomThird;
+  console.log(Pics.lastDisplayed);
 }
 
 //callback function click handler
