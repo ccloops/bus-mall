@@ -161,7 +161,7 @@ Pics.drawChart = function() {
     type: 'bar',
     data: Pics.chartData,
     options: {
-      responsive: false,
+      // responsive: false,
       animation: {
         duration: 1000,
         easing: 'easeOutBounce'
