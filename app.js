@@ -1,7 +1,7 @@
 'use strict';
 
 Pics.all = [];
-Pics.doNotUse = [];
+// Pics.doNotUse = [];
 Pics.workingArray = [];
 Pics.totalClicksCounter = 25;
 Pics.imgEl1 = document.getElementById('one');
@@ -44,17 +44,34 @@ new Pics('wine-glass', 'img/wine-glass.jpg');
 
 // random function
 
-Pics.random = function() {
-  var randomIndex = Math.floor(Math.random() * Pics.all.length);
+    Pics.random = function(){
+      return Math.floor(Math.random() * (Pics.all.length - 3));
+    };
 
-  if(Pics.doNotUse.indexOf(randomIndex) !== -1) {
-    Pics.random();
-  }
+    Pics.workingArray[0][0].filePath
 
-  Pics.workingArray.push(Pics.all[randomIndex]);
-  Pics.doNotUse.push(randomIndex);
-  Pics.all[randomIndex].views++;
+    Pics.getImages = function(){
+      var object1 = Pics.all.splice(Pics.random(), 1);
+      var object2 = Pics.all.splice(Pics.random(), 1);
+      var object3 = Pics.all.splice(Pics.random(), 1);
+      Pics.workingArray = [object1, object2, object3];
+      for (var i = 0; i < Pics.workingArray.length; i++){
+        Pics.workingArray[i][0].views++;
+
+
+
+  // if(Pics.doNotUse.indexOf(randomIndex) !== -1) {
+  //   Pics.random();
+  // }
+  //
+  // Pics.workingArray.push(Pics.all[randomIndex]);
+  // Pics.doNotUse.push(randomIndex);
+  // Pics.all[randomIndex].views++;
 };
+
+for (var i = 0; i < Pics.workingArray.length; i++){
+    Pics.all = Pics.all.concat(Pics.workingArray[i][0]);
+  }
 
 Pics.displayImages = function() {
   Pics.random();
@@ -75,11 +92,11 @@ Pics.redisplayImages = function() {
   Pics.displayImages();
 };
 
-Pics.clearDoNotUseArray = function() {
-  for(var i = 0; i < 3; i++) {
-    Pics.doNotUse.shift();
-  }
-};
+// Pics.clearDoNotUseArray = function() {
+//   for(var i = 0; i < 3; i++) {
+//     Pics.doNotUse.shift();
+//   }
+// };
 
 Pics.clickImg1 = function() {
   Pics.all[Pics.doNotUse[0]].clicks++;
