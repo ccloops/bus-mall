@@ -112,16 +112,6 @@ function handleClick(event) {
   randomImage();
 }
 
-
-// function showResults() {
-//   for(var i = 0; i < Pics.all.length; i++) {
-//     var liEl = document.createElement('li');
-//     liEl.textContent = Pics.all[i].name + ' has ' + Pics.all[i].clicks + ' votes in ' + Pics.all[i].views + ' times shown.';
-//     Pics.resultsList.appendChild(liEl);
-//   }
-//   Pics.resultsArrays();
-// }
-
 Pics.chartData = {
   labels: Pics.nameArray, // titles array we declared earlier
   datasets: [
@@ -129,28 +119,29 @@ Pics.chartData = {
       label: 'Number of Votes',
       data: Pics.clicksArray, // votes array we declared earlier
       backgroundColor: [
-        'bisque',
-        'darkgray',
-        'burlywood',
-        'lightblue',
-        'navy',
-        'bisque',
-        'darkgray',
-        'burlywood',
-        'lightblue',
-        'navy',
-        'bisque',
-        'darkgray',
-        'burlywood',
-        'lightblue',
-        'navy',
-        'bisque',
-        'darkgray',
-        'burlywood',
-        'lightblue',
-        'navy'
+        'darkRed',
+        'red',
+        'chocolate',
+        'goldenrod',
+        'gold',
+        'olive',
+        'mediumTurquoise',
+        'plum',
+        'deepPink',
+        'salmon',
+        'pink',
+        'rosyBrown',
+        'lavenderBlush',
+        'cornsilk',
+        'orange',
+        'orangeRed',
+        'tomato',
+        'lightSalmon',
+        'indianRed',
+        'crimson',
+        'coral',
       ],
-      hoverBackgroundColor: 'salmon'
+      hoverBackgroundColor: 'darkSlateGray'
     }]
 };
 
