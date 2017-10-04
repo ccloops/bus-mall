@@ -6,6 +6,9 @@ Pics.totalClicksCounter = 25;
 Pics.section = document.getElementById('images');
 Pics.resultsList = document.getElementById('results');
 
+// +++++++++++++++++++++++++++++++++++++++++
+// CONSTRUCTOR FUNCTION
+// +++++++++++++++++++++++++++++++++++++++++
 
 function Pics(name, filepath, altText) {
   this.name = name;
@@ -20,7 +23,10 @@ function Pics(name, filepath, altText) {
 
 }
 
-// make new image instances
+// +++++++++++++++++++++++++++++++++++++++++
+// NEW IMAGE INSTANCES
+// +++++++++++++++++++++++++++++++++++++++++
+
 new Pics('bag', 'img/bag.jpg', 'bag');
 new Pics('banana', 'img/banana.jpg', 'banana');
 new Pics('bathroom', 'img/bathroom.jpg', 'bathroom');
@@ -42,82 +48,106 @@ new Pics('usb', 'img/usb.gif', 'usb');
 new Pics('water-can', 'img/water-can.jpg', 'water-can');
 new Pics('wine-glass', 'img/wine-glass.jpg', 'wine-glass');
 
-//refer to images from HTML
+// +++++++++++++++++++++++++++++++++++++++++
+// REFER TO IMAGES FROM HTML
+// +++++++++++++++++++++++++++++++++++++++++
+
 var firstEl = document.getElementById('first');
 var secondEl = document.getElementById('second');
 var thirdEl = document.getElementById('third');
 
+// +++++++++++++++++++++++++++++++++++++++++
+// GENERATE RANDOM IMAGE FUNCTION
+// +++++++++++++++++++++++++++++++++++++++++
+
 function randomImage() {
   var randomFirst = Math.floor(Math.random() * Pics.all.length);
-  console.log('initial random first', randomFirst);
   var randomSecond = Math.floor(Math.random() * Pics.all.length);
-  console.log('initial random second', randomSecond);
   var randomThird = Math.floor(Math.random() * Pics.all.length);
-  console.log('initial random third', randomThird);
 
   while(Pics.lastDisplayed.includes(randomSecond) || Pics.lastDisplayed.includes(randomFirst) || Pics.lastDisplayed.includes(randomThird) || randomFirst === randomSecond || randomSecond === randomThird || randomFirst === randomThird) {
-    console.log('invalid number');
     randomFirst = Math.floor(Math.random() * Pics.all.length);
-    console.log('this is random first', randomFirst);
     randomSecond = Math.floor(Math.random() * Pics.all.length);
-    console.log('this is random second', randomSecond);
     randomThird = Math.floor(Math.random() * Pics.all.length);
-    console.log('this is random third', randomThird);
   }
 
-  //update src for first image
+  // +++++++++++++++++++++++++++++++++++++++++
+  // UPDATE SRC FOR FIRST, SECOND, AND THIRD IMAGES
+  // +++++++++++++++++++++++++++++++++++++++++
+
   firstEl.src = Pics.all[randomFirst].filepath;
   firstEl.alt = Pics.all[randomFirst].altText;
 
-  //update src for second image
   secondEl.src = Pics.all[randomSecond].filepath;
   secondEl.alt = Pics.all[randomSecond].altText;
 
-  //update src for third image
   thirdEl.src = Pics.all[randomThird].filepath;
   thirdEl.alt = Pics.all[randomThird].altText;
 
-  //increment the number of times the left and right were displayed
+  // +++++++++++++++++++++++++++++++++++++++++
+  // INCREMENT THE NUMBER OF TIMES THE IMAGES WERE DISPLAYED
+  // +++++++++++++++++++++++++++++++++++++++++
 
   Pics.all[randomFirst].views ++;
   Pics.all[randomSecond].views++;
   Pics.all[randomThird].views++;
 
+  // +++++++++++++++++++++++++++++++++++++++++
+  // RESET THE ARRAY - REASSIGN THE VALUES OF EACH INDEX EVERY TIME
+  // +++++++++++++++++++++++++++++++++++++++++
+
   Pics.lastDisplayed[0] = randomFirst;
   Pics.lastDisplayed[1] = randomSecond;
   Pics.lastDisplayed[2] = randomThird;
-  console.log(Pics.lastDisplayed);
 }
 
-//callback function click handler
+// +++++++++++++++++++++++++++++++++++++++++
+// CALLBACK FUNCTION FOR CLICK EVENT
+// +++++++++++++++++++++++++++++++++++++++++
+
 function handleClick(event) {
   if(event.target.id === 'images') {
     return alert('Click on a pic!');
   }
 
-  //track number of total clicks
+// +++++++++++++++++++++++++++++++++++++++++
+// TRACK NUMBER OF TOTAL CLICKS
+// +++++++++++++++++++++++++++++++++++++++++
+
   Pics.totalClicksCounter--;
 
-  //count votes for each image
+// +++++++++++++++++++++++++++++++++++++++++
+// COUNT VOTES FOR EACH IMAGE
+// +++++++++++++++++++++++++++++++++++++++++
+
   for(var i = 0; i < Pics.all.length; i++) {
     if(event.target.alt === Pics.all[i].altText) {
       Pics.all[i].clicks ++;
     }
   }
+
+// +++++++++++++++++++++++++++++++++++++++++
+// REMOVES EVENT LISTENER AFTER 25 CLICKS
+// AND CALLS RANDOM IMAGE FUNCTION AGAIN
+// +++++++++++++++++++++++++++++++++++++++++
+
   if(Pics.totalClicksCounter === 0) {
     Pics.section.removeEventListener('click', handleClick);
-    // showResults();
     Pics.drawChart();
   }
   randomImage();
 }
 
+// +++++++++++++++++++++++++++++++++++++++++
+// CHART DATA
+// +++++++++++++++++++++++++++++++++++++++++
+
 Pics.chartData = {
-  labels: Pics.nameArray, // titles array we declared earlier
+  labels: Pics.nameArray, // name array declared earlier
   datasets: [
     {
       label: 'Number of Votes',
-      data: Pics.clicksArray, // votes array we declared earlier
+      data: Pics.clicksArray, // clicks/votes array declared earlier
       backgroundColor: [
         'darkRed',
         'red',
@@ -171,7 +201,9 @@ Pics.drawChart = function() {
   // chartDrawn = true;
 };
 
-// Updating results arrays
+// +++++++++++++++++++++++++++++++++++++++++
+// UPDATING RESULTS ARRAYS TO BE ADDED IN THE CHART
+//+++++++++++++++++++++++++++++++++++++++++
 
 Pics.resultsArrays = function() {
   for (var i = 0; i < Pics.all.length; i++) {
@@ -181,8 +213,13 @@ Pics.resultsArrays = function() {
   }
 };
 
-//add event listener
+// +++++++++++++++++++++++++++++++++++++++++
+// ADDED EVENT LISTENER
+// +++++++++++++++++++++++++++++++++++++++++
+
 Pics.section.addEventListener('click', handleClick);
 
-//render images on page load
+// +++++++++++++++++++++++++++++++++++++++++
+// RENDER IMAGE ON PAGE LOAD
+// +++++++++++++++++++++++++++++++++++++++++
 randomImage();
