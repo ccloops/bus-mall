@@ -25,7 +25,7 @@ function Pics(name, filepath, altText) {
 }
 
 // +++++++++++++++++++++++++++++++++++++++++
-// CHECKING IF LOCAL STORAGE EXISTS, IF SO, RETRIEVE IT
+// CHECK IF LOCAL STORAGE EXISTS, IF SO, RETRIEVE IT
 // +++++++++++++++++++++++++++++++++++++++++
 
 
@@ -193,7 +193,9 @@ Pics.chartData = {
 
 Pics.drawChart = function() {
   Pics.resultsArrays();
-  // document.getElementById('chart').style.backgroundColor = 'rgba(30, 255, 150, 0.3)';
+  document.getElementById('chart').style.backgroundColor = 'rgba(109, 238, 255, 0.3)';
+  document.getElementById('chart').style.border = '2px solid cornsilk';
+  document.getElementById('chart').style.borderRadius = '50px';
   var ctx = document.getElementById('chart').getContext('2d');
   new Chart(ctx,{
     type: 'bar',
