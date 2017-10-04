@@ -9,6 +9,7 @@ Pics.viewsArray = [];
 Pics.clicksArray = [];
 Pics.nameArray = [];
 
+
 // +++++++++++++++++++++++++++++++++++++++++
 // CONSTRUCTOR FUNCTION
 // +++++++++++++++++++++++++++++++++++++++++
@@ -27,8 +28,10 @@ function Pics(name, filepath, altText) {
 // CHECKING IF LOCAL STORAGE EXISTS, IF SO, RETRIEVE IT
 // +++++++++++++++++++++++++++++++++++++++++
 
-if(localMemory === true) {
-  localStorage.getItem(localMemory);
+
+if (Boolean(localStorage.memory) === true) {
+  Pics.all = JSON.parse(localStorage.picsAll);
+
 } else {
 
   // +++++++++++++++++++++++++++++++++++++++++
@@ -145,13 +148,11 @@ function handleClick(event) {
   if(Pics.totalClicksCounter === 0) {
     Pics.section.removeEventListener('click', handleClick);
     Pics.drawChart();
-    localStorage.views = Pics.viewsArray;
-    localStorage.clicks = Pics.clicksArray;
-    localStorage.name = Pics.nameArray;
+    localStorage.picsAll = JSON.stringify(Pics.all);
+    localStorage.memory = true;
   }
   randomImage();
 }
-
 
 // +++++++++++++++++++++++++++++++++++++++++
 // CHART DATA
@@ -199,20 +200,20 @@ Pics.drawChart = function() {
     data: Pics.chartData,
     options: {
       // responsive: false,
-      animation: {
-        duration: 1000,
-        easing: 'easeOutBounce'
+      scales: {
+        yAxes: [{
+          ticks: {
+            max: 30,
+            min: 0,
+            stepSize: 1.0
+          }
+        }]
       }
+      // animation: {
+      //   duration: 1000,
+      //   easing: 'easeOutBounce'
+      // }
     },
-    scales: {
-      yAxes: [{
-        ticks: {
-          max: 20,
-          min: 0,
-          stepSize: 1.0
-        }
-      }]
-    }
   });
   // chartDrawn = true;
 };
