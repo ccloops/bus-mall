@@ -5,6 +5,10 @@ Pics.lastDisplayed = [];
 Pics.totalClicksCounter = 25;
 Pics.section = document.getElementById('images');
 Pics.resultsList = document.getElementById('results');
+Pics.viewsArray = [];
+Pics.clicksArray = [];
+Pics.nameArray = [];
+
 
 // +++++++++++++++++++++++++++++++++++++++++
 // CONSTRUCTOR FUNCTION
@@ -17,36 +21,45 @@ function Pics(name, filepath, altText) {
   this.views = 0;
   this.clicks = 0;
   Pics.all.push(this);
-  Pics.viewsArray = [];
-  Pics.clicksArray = [];
-  Pics.nameArray = [];
 
 }
 
 // +++++++++++++++++++++++++++++++++++++++++
-// NEW IMAGE INSTANCES
+// CHECK IF LOCAL STORAGE EXISTS, IF SO, RETRIEVE IT
 // +++++++++++++++++++++++++++++++++++++++++
 
-new Pics('bag', 'img/bag.jpg', 'bag');
-new Pics('banana', 'img/banana.jpg', 'banana');
-new Pics('bathroom', 'img/bathroom.jpg', 'bathroom');
-new Pics('boots', 'img/boots.jpg', 'boots');
-new Pics('breakfast', 'img/breakfast.jpg', 'breakfast');
-new Pics('bubblegum', 'img/bubblegum.jpg', 'bubblegum');
-new Pics('chair', 'img/chair.jpg', 'chair');
-new Pics('cthulhu', 'img/cthulhu.jpg', 'cthulhu');
-new Pics('dog-duck', 'img/dog-duck.jpg', 'dog-duck');
-new Pics('dragon', 'img/dragon.jpg', 'dragon');
-new Pics('pen', 'img/pen.jpg', 'pen');
-new Pics('pet-sweep', 'img/pet-sweep.jpg', 'pet-sweep');
-new Pics('scissors', 'img/scissors.jpg', 'scissors');
-new Pics('shark', 'img/shark.jpg', 'shark');
-new Pics('sweep', 'img/sweep.png', 'sweep');
-new Pics('tauntaun', 'img/tauntaun.jpg', 'tauntaun');
-new Pics('unicorn', 'img/unicorn.jpg', 'unicorn');
-new Pics('usb', 'img/usb.gif', 'usb');
-new Pics('water-can', 'img/water-can.jpg', 'water-can');
-new Pics('wine-glass', 'img/wine-glass.jpg', 'wine-glass');
+
+if (Boolean(localStorage.memory) === true) {
+  Pics.all = JSON.parse(localStorage.picsAll);
+
+} else {
+
+  // +++++++++++++++++++++++++++++++++++++++++
+  // NEW IMAGE INSTANCES
+  // +++++++++++++++++++++++++++++++++++++++++
+
+  new Pics('bag', 'img/bag.jpg', 'bag');
+  new Pics('banana', 'img/banana.jpg', 'banana');
+  new Pics('bathroom', 'img/bathroom.jpg', 'bathroom');
+  new Pics('boots', 'img/boots.jpg', 'boots');
+  new Pics('breakfast', 'img/breakfast.jpg', 'breakfast');
+  new Pics('bubblegum', 'img/bubblegum.jpg', 'bubblegum');
+  new Pics('chair', 'img/chair.jpg', 'chair');
+  new Pics('cthulhu', 'img/cthulhu.jpg', 'cthulhu');
+  new Pics('dog-duck', 'img/dog-duck.jpg', 'dog-duck');
+  new Pics('dragon', 'img/dragon.jpg', 'dragon');
+  new Pics('pen', 'img/pen.jpg', 'pen');
+  new Pics('pet-sweep', 'img/pet-sweep.jpg', 'pet-sweep');
+  new Pics('scissors', 'img/scissors.jpg', 'scissors');
+  new Pics('shark', 'img/shark.jpg', 'shark');
+  new Pics('sweep', 'img/sweep.png', 'sweep');
+  new Pics('tauntaun', 'img/tauntaun.jpg', 'tauntaun');
+  new Pics('unicorn', 'img/unicorn.jpg', 'unicorn');
+  new Pics('usb', 'img/usb.gif', 'usb');
+  new Pics('water-can', 'img/water-can.jpg', 'water-can');
+  new Pics('wine-glass', 'img/wine-glass.jpg', 'wine-glass');
+
+}
 
 // +++++++++++++++++++++++++++++++++++++++++
 // REFER TO IMAGES FROM HTML
@@ -127,13 +140,16 @@ function handleClick(event) {
   }
 
 // +++++++++++++++++++++++++++++++++++++++++
-// REMOVES EVENT LISTENER AFTER 25 CLICKS
-// AND CALLS RANDOM IMAGE FUNCTION AGAIN
+// REMOVES EVENT LISTENER AFTER 25 CLICKS,
+// CALLS RANDOM IMAGE FUNCTION AGAIN,
+// AND SETS LOCAL STORAGE
 // +++++++++++++++++++++++++++++++++++++++++
 
   if(Pics.totalClicksCounter === 0) {
     Pics.section.removeEventListener('click', handleClick);
     Pics.drawChart();
+    localStorage.picsAll = JSON.stringify(Pics.all);
+    localStorage.memory = true;
   }
   randomImage();
 }
@@ -176,31 +192,48 @@ Pics.chartData = {
 };
 
 Pics.drawChart = function() {
+  var a = document.createElement('a');
+  a.href = 'marketing.html';
+  a.innerHTML = '<br / > Marketing Results';
+  Pics.resultsList.appendChild(a);
   Pics.resultsArrays();
+  document.getElementById('chart').style.backgroundColor = 'rgba(109, 238, 255, 0.3)';
+  document.getElementById('chart').style.border = '2px solid cornsilk';
+  document.getElementById('chart').style.borderRadius = '50px';
   var ctx = document.getElementById('chart').getContext('2d');
   new Chart(ctx,{
     type: 'bar',
     data: Pics.chartData,
     options: {
-      // responsive: false,
-      animation: {
-        duration: 1000,
-        easing: 'easeOutBounce'
-      }
-    },
-    scales: {
-      yAxes: [{
-        ticks: {
-          max: 20,
-          min: 0,
-          stepSize: 1.0
+      legend: {
+        labels: {
+          fontColor: 'orange'
         }
-      }]
-    }
+      },
+      // responsive: false,
+      scales: {
+        yAxes: [{
+          ticks: {
+            fontColor: 'orange',
+            // max: 30,
+            min: 0,
+            stepSize: 1.0
+          },
+        }],
+        xAxes: [{
+          ticks: {
+            fontColor: 'orange'
+          },
+        }]
+      }
+      // animation: {
+      //   duration: 1000,
+      //   easing: 'easeOutBounce'
+      // }
+    },
   });
   // chartDrawn = true;
 };
-
 // +++++++++++++++++++++++++++++++++++++++++
 // UPDATING RESULTS ARRAYS TO BE ADDED IN THE CHART
 //+++++++++++++++++++++++++++++++++++++++++
