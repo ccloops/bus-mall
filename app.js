@@ -192,6 +192,10 @@ Pics.chartData = {
 };
 
 Pics.drawChart = function() {
+  var a = document.createElement('a');
+  a.href = 'marketing.html';
+  a.innerHTML = '<br / > Marketing Results';
+  Pics.resultsList.appendChild(a);
   Pics.resultsArrays();
   document.getElementById('chart').style.backgroundColor = 'rgba(109, 238, 255, 0.3)';
   document.getElementById('chart').style.border = '2px solid cornsilk';
@@ -211,7 +215,7 @@ Pics.drawChart = function() {
         yAxes: [{
           ticks: {
             fontColor: 'orange',
-            max: 30,
+            // max: 30,
             min: 0,
             stepSize: 1.0
           },

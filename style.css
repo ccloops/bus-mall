@@ -23,3 +23,17 @@ img {
   border: 2px solid cornsilk;
   border-radius: 50px;
 }
+
+a {
+  text-decoration: none;
+  color: cornsilk;
+  background-color: DarkSlateGray;
+}
+
+a:hover {
+  background-color: salmon;
+}
+
+canvas {
+  margin-top: 30px;
+}
