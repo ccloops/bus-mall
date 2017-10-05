@@ -1,6 +1,8 @@
 # bus-mall
 bus-mall project
 
-### Pair Programmed the initial HTML and JS scaffolding with Andrew Bloom. Set up the JS similarly to the code we saw in class. Pair programmed the chart.js with Andrew.
+### Worked with Andrew on adding the local storage feature to my Bus Mall project. Worked individually on styling and stretch goal.
 
-### Added colors to the bar chart design and comments in my JavaScript code.
+### The stretch goal I completed by adding a marketing report table to evaluate how well the images perform.
+
+### The marketing report table can be accessed by clicking on the "Marketing Results" button that will appear once the totals chart has rendered.

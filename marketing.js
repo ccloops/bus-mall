@@ -118,12 +118,21 @@ function makeRecommendedRow() {
   thEl.textContent = 'Recommended?';
   trEl.appendChild(thEl);
 
-  for(var i in Pics.all) {
+  for(var i = 0; i < Pics.all.length; i++) {
     var tdEl = document.createElement('td');
-    tdEl.textContent = Pics.all[i].recommended;
+    tdEl.textContent = isRecommended();
     trEl.appendChild(tdEl);
   }
   marketingTable.appendChild(trEl);
 }
 
 makeRecommendedRow();
+
+function isRecommended() {
+  if (Math.floor(((JSON.parse(localStorage.picsAll)[i].clicks) / (JSON.parse(localStorage.picsAll)[i].views)) * 100) < 50) {
+    return 'No';
+  } else {
+    return 'Yes';
+  }
+}
+isRecommended();
