@@ -201,14 +201,25 @@ Pics.drawChart = function() {
     type: 'bar',
     data: Pics.chartData,
     options: {
+      legend: {
+        labels: {
+          fontColor: 'orange'
+        }
+      },
       // responsive: false,
       scales: {
         yAxes: [{
           ticks: {
+            fontColor: 'orange',
             max: 30,
             min: 0,
             stepSize: 1.0
-          }
+          },
+        }],
+        xAxes: [{
+          ticks: {
+            fontColor: 'orange'
+          },
         }]
       }
       // animation: {
